@@ -1,4 +1,14 @@
 
+
+/*
+//杜洋工作室出品
+//洋桃系列开发板应用程序
+//关注微信公众号：洋桃电子
+//洋桃开发板资料下载 www.DoYoung.net/YT 
+//即可免费看所有教学视频，下载技术资料，技术疑难提问
+//更多内容尽在 杜洋工作室主页 www.doyoung.net
+*/
+
 /*
 《修改日志》
 1-201708221422 加入RCC时钟的设置函数。
@@ -40,12 +50,15 @@ void RCC_Configuration(void){ //RCC时钟的设置
 		while(RCC_GetSYSCLKSource() != 0x08); //等待PLL成为SYSCLK时钟源   
 	}  
 	/*开始使能程序中需要使用的外设时钟*/   
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1 | RCC_APB2Periph_GPIOA | RCC_APB2Periph_GPIOB |   
-	RCC_APB2Periph_GPIOC | RCC_APB2Periph_GPIOD | RCC_APB2Periph_GPIOE, ENABLE); //APB2外设时钟使能      
+//	RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1 | RCC_APB2Periph_GPIOA | RCC_APB2Periph_GPIOB |   
+//	RCC_APB2Periph_GPIOC | RCC_APB2Periph_GPIOD | RCC_APB2Periph_GPIOE, ENABLE); //APB2外设时钟使能      
 //	RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART2, ENABLE); //APB1外设时钟使能  
 //	RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART3, ENABLE);   
 //	RCC_APB2PeriphClockCmd(RCC_APB2Periph_SPI1, ENABLE);   	 
 //	RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO, ENABLE);    
 }  
 
-
+/*********************************************************************************************
+ * 杜洋工作室 www.DoYoung.net
+ * 洋桃电子 www.DoYoung.net/YT 
+*********************************************************************************************/

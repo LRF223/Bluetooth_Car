@@ -1,24 +1,63 @@
-/*********************************************************************************************
-
-说明：
- # 本模板加载了STM32F103内部的RCC时钟设置，并加入了利用滴答定时器的延时函数。
- # 可根据自己的需要增加或删减。
-
-*********************************************************************************************/
 #include "stm32f10x.h" //STM32头文件
 #include "sys.h"
 #include "delay.h"
+#include "motor.h"
+#include "key.h"
+#include "usart.h"
 
 
 int main (void){//主程序
+	u8 a;
+	//初始化程序
 	RCC_Configuration(); //时钟设置
-	while(1){
-		
-		delay_s(1); //延时1秒
+	MOTOR_Init();//LED初始化
+	KEY_Init();//按键初始化
+	USART2_Init(9600); //串口初始化（参数是波特率）
 
+	//主循环
+	while(1){
+		int b = 100;
+		int c = 50;
+		//查询方式接收
+		if(USART_GetFlagStatus(USART2,USART_FLAG_RXNE) != RESET){  //查询串口待处理标志位
+			a =USART_ReceiveData(USART2);//读取接收到的数据
+			switch (a){
+				case '0':
+					Go_Forward();
+					delay_ms(b);
+					Stop();
+					printf("%c:Go_Forward ",a); //
+					break;
+				case '1':
+					Draw_Back();
+					delay_ms(b);
+					Stop();					
+					printf("%c:Draw_Back",a); //
+					break;
+				case '2':
+					Turn_left();
+					delay_ms(c);
+					Stop();				
+					printf("%c:Turn_left",a); //把收到的数据发送回电脑
+					break;
+				case '3':
+					Turn_right();
+					delay_ms(c);
+					Stop();				
+					printf("%c:Turn_right ",a); //把收到的数据发送回电脑
+					break;
+					case '4':
+					Stop();
+					printf("%c:Stop ",a); //把收到的数据发送回电脑
+					break;
+				default:
+					break;
+			}		  
+		}
+
+	
 	}
 }
-
 
 
 /*
@@ -39,5 +78,8 @@ uc8     a; //定义只读 的8位无符号变量a
 delay_us(1); //延时1微秒
 delay_ms(1); //延时1毫秒
 delay_s(1); //延时1秒
+
 */
+
+
 
