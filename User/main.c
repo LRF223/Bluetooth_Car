@@ -7,21 +7,22 @@
 
 int main (void){
 	u8 a;
-	int c = 150;
+	int c = 150;												//延时ms
 
-	RCC_Configuration(); 		//时钟设置
-	MOTOR_Init();						//LED初始化
-	USART2_Init(9600); 			//串口初始化（参数是波特率）
-	
+	RCC_Configuration(); 								//时钟设置
+	MOTOR_Init();												//LED初始化
+	USART2_Init(9600); 									//串口初始化（参数是波特率）
 	TIM3_PWM_Init(7200-1,0); 						//PWM时钟频率=72000/(7200)*(1) = 10kHZ 
 
-		TIM_SetCompare3(TIM3,5000);        //改变比较值TIM3->CCR2达到调节占空比的效果
-		TIM_SetCompare4(TIM3,5000);	
+	TIM_SetCompare3(TIM3,5000);					//改变比较值TIM3->CCR2达到调节占空比的效果
+	TIM_SetCompare4(TIM3,5000);	
 	
 	while(1){				
-		if(USART_GetFlagStatus(USART2,USART_FLAG_RXNE) != RESET){	 			//查询方式接收，查询串口待处理标志位
+		if(USART_GetFlagStatus(USART2,USART_FLAG_RXNE) != RESET)				//查询方式接收，查询串口待处理标志位
+		{	 		
 			a =USART_ReceiveData(USART2);																	//读取接收到的数据
-			switch (a){
+			switch (a)
+			{
 				case '0':
 					Go_Forward();
 					delay_ms(c);
@@ -67,7 +68,7 @@ int main (void){
 					printf("%c:Stop ",a); 
 					break;
 
-/*********************PWM调速***************************/				
+          /**********PWM调速**********/				
 					case '5':			
 					TIM_SetCompare3(TIM3,7200);        
 					TIM_SetCompare4(TIM3,7200);
